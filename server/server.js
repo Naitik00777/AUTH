@@ -10,11 +10,9 @@ const app = express()
 const port = process.env.PORT || 4000
 connectDB();
 
-
 app.use(cors({
-  origin: ["https://auth-tau-pearl.vercel.app", "http://localhost:5173"],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
+  origin: ['https://auth-tau-pearl.vercel.app'], // Your frontend deployed URL
+  credentials: true,
 }));
 
 app.use(express.json());

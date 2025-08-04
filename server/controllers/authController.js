@@ -29,11 +29,10 @@ export const register = async (req, res) => {
 
         res.cookie('token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
+            secure: process.env.NODE_ENV === 'production',  // true on Render
             sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
             maxAge: 7 * 24 * 60 * 60 * 1000
-
-        })
+        });
 
         // Sending welcome email
         const mialOptions = {
@@ -80,11 +79,10 @@ export const login = async (req, res) => {
 
         res.cookie('token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
+            secure: process.env.NODE_ENV === 'production',  // true on Render
             sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
             maxAge: 7 * 24 * 60 * 60 * 1000
-
-        })
+        });
 
 
         return res.json({ success: true })
@@ -101,12 +99,12 @@ export const logout = async (req, res) => {
 
     try {
 
-        res.clearCookie('token', {
+        res.cookie('token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
+            secure: process.env.NODE_ENV === 'production',  // true on Render
             sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
-
-        })
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        });
 
         return res.json({ success: true, message: "Logged Out" })
 
@@ -259,17 +257,17 @@ export const resetPassword = async (req, res) => {
 
     try {
 
-        const user = await userModel.findOne({email})
-        if(!user){
-            return res.json({success: false, message: "User not found"})
+        const user = await userModel.findOne({ email })
+        if (!user) {
+            return res.json({ success: false, message: "User not found" })
         }
 
-        if(user.resetOtp === "" || user.resetOtp !== otp){
-            return res.json({success: false, message: "Invalid OTP"})
+        if (user.resetOtp === "" || user.resetOtp !== otp) {
+            return res.json({ success: false, message: "Invalid OTP" })
         }
 
-        if(user.resetOtpExpireAt < Date.now()){
-            return res.json({success: false, message: "OTP Expired"})
+        if (user.resetOtpExpireAt < Date.now()) {
+            return res.json({ success: false, message: "OTP Expired" })
         }
 
         const hashedPassword = await bcrypt.hash(newPassword, 10)
@@ -280,10 +278,10 @@ export const resetPassword = async (req, res) => {
 
         await user.save()
 
-        return res.json({success: true, message: "Password has been reset successfully"})
-        
+        return res.json({ success: true, message: "Password has been reset successfully" })
+
     } catch (error) {
         return res.json({ success: false, message: error.message })
-        
+
     }
 }
