@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "Animations/*": ["src/Animations/*"],
+      "Reactbits/*": ["src/Reactbits/*"]
+    }
+  },
+  "include": ["src"]
+}
