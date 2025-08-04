@@ -10,11 +10,14 @@ const app = express()
 const port = process.env.PORT || 4000
 connectDB();
 
-const allowedOrigins = ['http://localhost:5173']
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({origin: allowedOrigins, credentials:true}))
+
+app.use(cors({
+  origin: ["http://localhost:5173", "https://auth-phi-navy.vercel.app"],
+  credentials: true,
+}));
 
 // API Endpoints
 app.get("/",(req, res)=> res.send("API Working"))
