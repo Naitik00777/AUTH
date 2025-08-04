@@ -15,13 +15,13 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-  origin: ["http://localhost:5173", "https://auth-phi-navy.vercel.app"],
+  origin: [""],
   credentials: true,
 }));
 
 // API Endpoints
-app.get("/",(req, res)=> res.send("API Working"))
+app.get("/", (req, res) => res.send("API Working"))
 app.use('/api/auth', authRouter)
 app.use('/api/user', userRouter)
 
-app.listen(port, ()=> console.log(`Server started on PORT:${port}`))
+app.listen(port, () => console.log(`Server started on PORT:${port}`))
