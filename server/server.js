@@ -11,14 +11,14 @@ const port = process.env.PORT || 4000
 connectDB();
 
 
-app.use(express.json());
-app.use(cookieParser());
-
 app.use(cors({
-  origin: ["http://localhost:5173", "https://auth-tau-pearl.vercel.app"],
-  credentials: true,
+  origin: ["https://auth-tau-pearl.vercel.app", "http://localhost:5173"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
 }));
 
+app.use(express.json());
+app.use(cookieParser());
 
 // API Endpoints
 app.get("/", (req, res) => res.send("API Working"))
