@@ -15,9 +15,10 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-  origin: ["https://auth-tau-pearl.vercel.app"],
+  origin: ["http://localhost:5173", "https://auth-tau-pearl.vercel.app"],
   credentials: true,
 }));
+
 
 // API Endpoints
 app.get("/", (req, res) => res.send("API Working"))
